@@ -129,7 +129,6 @@ class EventService {
       throw new Error("User not authenticated with Google");
     } 
     googleClient.setCredentials({ access_token: user.accessToken });
-    console.log("getevent called",googleClient)
     const calendar = google.calendar({ version: "v3", auth: googleClient });
     const response = await calendar.events.list({
       calendarId: "primary",

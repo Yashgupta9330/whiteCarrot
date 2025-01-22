@@ -1,13 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home() {
-
+ const navigate=useNavigate();
   const login = () => {
-    window.location.href = "http://localhost:4000/api/auth/login";
-  }  
+    window.location.href = "http://localhost:4000/api/auth/login"; 
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token){
+      navigate('/dashboard');
+    }
+  }, []);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
@@ -52,3 +61,4 @@ export default function Home() {
     </div>
   );
 }
+

@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "noEmit": false,
     "types": ["node"],
-    "jsx": "react"  // This enables JSX support for React in TSX files
+    "jsx": "react-jsx"  
   },
   "include": [
     "src/**/*"  // Include all TypeScript and TSX files in the src folder
