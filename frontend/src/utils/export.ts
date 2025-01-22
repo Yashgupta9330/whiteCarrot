@@ -1,22 +1,29 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { EventType } from '@/types/events';
-import { formatDateTime } from './Date';
 
 export const exportUtils = {
   toPDF: (events: EventType[]) => {
     const doc = new jsPDF();
-    doc.text("Event List", 14, 15);
-    doc.autoTable({
-      head: [["Title", "Start Date", "End Date", "Description", "Location"]],
-      body: events.map((event) => [
-        event.summary,
-        formatDateTime.toLocalDate(event.start.dateTime),
-        formatDateTime.toLocalDate(event.end.dateTime),
-        event.description || "",
-        event.location || "",
-      ]),
-    });
+
+    doc.text("Event List", 14, 20); 
+    const startY = 30; 
+    if (events.length === 0) {
+      doc.text("No events available.", 14, startY); 
+    } else {
+      doc.autoTable({
+        startY: startY,
+        head: [["Title", "Start Date", "End Date", "Description", "Location"]],
+        body: events.map((event) => [
+          event.summary,
+          event.start.dateTime,
+          event.end.dateTime,
+          event.description || "",
+          event.location || "",
+        ]),
+      });
+    }
+
     doc.save("events.pdf");
   },
 

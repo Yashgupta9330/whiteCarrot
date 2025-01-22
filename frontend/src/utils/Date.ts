@@ -6,3 +6,4 @@ export const handleTodayClick = () => {
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
 };
+

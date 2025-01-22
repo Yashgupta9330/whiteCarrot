@@ -32,6 +32,7 @@
     iCalUID: string;
     sequence: number;
     location:string;
+    eventType:string;
     reminders: {
       useDefault: boolean;
     };
@@ -69,6 +70,8 @@
     visibility?: string;
     iCalUID: string;
     sequence: number;
+    location:string;
+    eventType:string;
     reminders: {
       useDefault: boolean;
     };

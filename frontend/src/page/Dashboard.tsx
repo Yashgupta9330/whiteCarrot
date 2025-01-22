@@ -11,6 +11,7 @@ import { useFilter } from '@/hooks/useFilter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EventType, NewEventType } from '@/types/events';
+import { Insights } from '@/components/events/Insights';
 
 export default function Dashboard() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
@@ -107,12 +108,14 @@ export default function Dashboard() {
     <div className="w-full min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 transition-colors duration-500">
       <Header />
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <Insights events={events} />
         <Card className="bg-white dark:bg-gray-800 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl text-indigo-600 dark:text-indigo-400">Calendar Events</CardTitle>
           </CardHeader>
           <CardContent>
             <FilterBar
+              events={events}
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
               filterDate={filterDate}
