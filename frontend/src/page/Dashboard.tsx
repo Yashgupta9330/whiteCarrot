@@ -105,9 +105,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 transition-colors duration-500">
+    <div className="w-full min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
       <Header />
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 ">
+      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Insights events={events} />
         <Card className="bg-white dark:bg-gray-800 shadow-lg">
           <CardHeader>
@@ -135,6 +135,7 @@ export default function Dashboard() {
           onOpenChange={setIsEventDialogOpen}
           selectedEvent={selectedEvent}
           onSubmit={handleEventSubmit}
+          loading={loading}
         />
 
         <DeleteDialog
