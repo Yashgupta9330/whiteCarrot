@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <main className="w-full h-full min-h-screen flex items-center justify-center">
+    <main className="w-full h-full min-h-screen flex items-center justify-center dark:bg-blue-600">
       <Routes>
         <Route
           path="/"

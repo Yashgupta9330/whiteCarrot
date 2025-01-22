@@ -29,14 +29,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto mb-4 sm:mb-0">
         <Input
           type="date"
-          className="w-full sm:w-auto border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+          className="w-full sm:w-auto border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400 dark:text-gray-300"
           value={filterDate}
           onChange={(e) => onFilterDateChange(e.target.value)}
         />
         <Button
           variant="outline"
           onClick={handleTodayClick}
-          className="w-full sm:w-auto text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900"
+          className="w-full sm:w-auto text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900 dark:text-gray-300"
         >
           Today
         </Button>
@@ -46,7 +46,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-indigo-600 dark:text-indigo-400" />
           <Input
             placeholder="Search events"
-            className="pl-8 w-full border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+            className="pl-8 w-full border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400 dark:text-gray-300"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
           />

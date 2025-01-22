@@ -1,34 +1,18 @@
 import { google, calendar_v3 } from 'googleapis';
 import googleClient from '../lib/googleClient';
+import { convertToUTC } from '../lib/date';
+import { EventData, User } from '../types/event';
 
 
-type User = {
-  id?: string;
-  email?: string;
-  googleId?: string | null;
-  refreshToken?: string | null;
-  accessToken?: string | null;
-  createdAt?: Date;
-  updatedAt?: Date;
-};
-
-interface EventData {
-  summary?: string;
-  startDate?: string;
-  startTime?: string;
-  endDate?: string;
-  endTime?: string;
-  description?: string;
-  location?: string;
-}
 
 class EventService {
   async createEvent(user: User, eventData: EventData) {
-  
+
     const { summary, startDate, startTime, endDate, endTime, description, location } = eventData;
 
-    const startDateTime = new Date(`${startDate}T${startTime}:00`);
-    const endDateTime = new Date(`${endDate}T${endTime}:00`);
+    const timeZone = "Asia/Kolkata";
+    const startDateTime = convertToUTC(startDate, startTime, 'Asia/Kolkata');
+    const endDateTime = convertToUTC(endDate, endTime, 'Asia/Kolkata');
 
     if (startDateTime >= endDateTime) {
       throw new Error("End time must be after start time.");
@@ -37,18 +21,17 @@ class EventService {
     if (startDateTime < new Date()) {
       throw new Error("Start time cannot be in the past.");
     }
-
     const event: calendar_v3.Schema$Event = {
       summary,
       description: description || "",
       location: location || "",
-      start: { 
-        dateTime: startDateTime.toISOString(), 
-        timeZone: "Asia/Kolkata" 
+      start: {
+        dateTime: startDateTime.toISOString(),
+        timeZone,
       },
-      end: { 
-        dateTime: endDateTime.toISOString(), 
-        timeZone: "Asia/Kolkata" 
+      end: {
+        dateTime: endDateTime.toISOString(),
+        timeZone,
       },
     };
 
@@ -67,7 +50,7 @@ class EventService {
       } else {
         throw new Error('Failed to create event');
       }
-    } catch (error:any) {
+    } catch (error: any) {
       throw new Error(`Google API Error: ${error.message}`);
     }
   }
@@ -96,50 +79,33 @@ class EventService {
       }
       googleClient.setCredentials({ access_token: user.accessToken });
       const calendar = google.calendar({ version: "v3", auth: googleClient });
-      const response = await calendar.events.list({
-        calendarId: "primary",
-        timeMin: new Date().toISOString(),
-        timeMax: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
-      });
-  
-      const events = response.data.items;
-      console.log("Retrieved events:", events);
-  
-      const startDateTime = new Date(`${eventData.startDate}T${eventData.startTime}:00`);
-      const endDateTime = new Date(`${eventData.endDate}T${eventData.endTime}:00`);
-  
+      const timeZone = "Asia/Kolkata";
+      const startDateTime = convertToUTC(eventData.startDate, eventData.startTime, 'Asia/Kolkata');
+      const endDateTime = convertToUTC(eventData.endDate, eventData.endTime, 'Asia/Kolkata');
       if (startDateTime >= endDateTime) {
         throw new Error("End time must be after start time.");
       }
-  
       if (startDateTime < new Date()) {
         throw new Error("Start time cannot be in the past.");
       }
-  
-      console.log("Preparing event data...");
-  
       const event: calendar_v3.Schema$Event = {
         summary: eventData.summary,
         description: eventData.description || "",
         location: eventData.location || "",
         start: {
           dateTime: startDateTime.toISOString(),
-          timeZone: "Asia/Kolkata",
+          timeZone,
         },
         end: {
           dateTime: endDateTime.toISOString(),
-          timeZone: "Asia/Kolkata",
+          timeZone,
         },
       };
-  
-      console.log("Event data prepared:", event);
-
       const updatedEventResponse = await calendar.events.update({
         calendarId: "primary",
         eventId,
-        requestBody: event, 
+        requestBody: event,
       });
-  
       console.log("Event updated successfully:", updatedEventResponse);
       return updatedEventResponse.data;
     } 
@@ -148,15 +114,15 @@ class EventService {
       throw new Error(error.message || "Failed to update event.");
     }
   }
-  
+
   async getEvents(user: User) {
     if (!user.accessToken) {
       throw new Error("User not authenticated with Google");
-    } 
+    }
     googleClient.setCredentials({ access_token: user.accessToken });
     const calendar = google.calendar({ version: "v3", auth: googleClient });
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 3); 
+    yesterday.setDate(yesterday.getDate() - 3);
     yesterday.setHours(0, 0, 0, 0);
     const response = await calendar.events.list({
       calendarId: "primary",
@@ -165,7 +131,7 @@ class EventService {
       singleEvents: true,
       orderBy: "startTime",
     });
-    
+
     return response.data.items;
   }
 }

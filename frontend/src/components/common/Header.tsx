@@ -4,12 +4,28 @@ import { Moon, Sun } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getAuthHeaders } from "@/services/apiConnector";
 
 
 export const Header: React.FC = () => {
+  const navigate=useNavigate();
   const [dark, setDark] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+
+  const headers=getAuthHeaders();
+
+  const logout = async () => {
+    try {
+      await axios.get("http://localhost:4000/api/auth/logout",{headers});
+      localStorage.removeItem("token");
+      navigate('/')
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
 
   useEffect(() => {
     if (dark) {
@@ -59,6 +75,7 @@ export const Header: React.FC = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <Button
+            onClick={logout}
             variant="outline"
             className="text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900"
           >
