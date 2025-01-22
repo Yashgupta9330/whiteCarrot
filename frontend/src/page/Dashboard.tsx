@@ -49,14 +49,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token){
+    if (token){
+      fetchEvents();
+    }
+    else{
       navigate('/');
     }
-  }, [navigate]);
+  }, []);
 
-  useEffect(()=>{
-   fetchEvents()
-  },[])
 
   const handleEventSubmit = async (newEvent: NewEventType) => {
     if (selectedEvent) {

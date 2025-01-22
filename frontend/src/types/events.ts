@@ -1,6 +1,7 @@
 
   
   export interface NewEventType {
+    id?:string;
     summary: string;
     startDate: string;
     startTime: string;
@@ -30,6 +31,7 @@
     visibility?: string;
     iCalUID: string;
     sequence: number;
+    location:string;
     reminders: {
       useDefault: boolean;
     };

@@ -18,7 +18,7 @@ export const useEvents = () => {
       const data = await EventService.list();
       setEvents(data);
     } catch (err: any) {
-      if (err.status === 401 || err.status === 404) {
+      if (err.status === 401 || err.status === 404 || err.status == 500) {
         handleAuthError(navigate, err.message);
         return;
       }
@@ -36,7 +36,7 @@ export const useEvents = () => {
       await EventService.create(newEvent);
       await fetchEvents();
     } catch (err: any) {
-      if (err.status === 401 || err.status === 404) {
+      if (err.status === 401 || err.status === 404 || err.status == 500) {
         handleAuthError(navigate, err.message);
         return;
       }
@@ -51,10 +51,11 @@ export const useEvents = () => {
     try {
       setLoading(true);
       setError(null);
+      console.log("called here")
       await EventService.update(id, event);
       await fetchEvents();
     } catch (err: any) {
-      if (err.status === 401 || err.status === 404) {
+      if (err.status === 401 || err.status === 404 || err.status == 500) {
         handleAuthError(navigate, err.message);
         return;
       }
@@ -72,7 +73,7 @@ export const useEvents = () => {
       await EventService.delete(id);
       await fetchEvents();
     } catch (err: any) {
-      if (err.status === 401 || err.status === 404) {
+      if (err.status === 401 || err.status === 404 || err.status == 500) {
         handleAuthError(navigate, err.message);
         return;
       }

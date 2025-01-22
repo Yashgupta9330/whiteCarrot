@@ -32,9 +32,16 @@ export const EventService = {
 
   update: async (id: string, event: NewEventType): Promise<EventType> => {
     try {
-      const response = await axiosInstance.put(`/update/${id}`, event, {
-        headers: getAuthHeaders()
-      });
+      const response = await axiosInstance.put(
+        `/update`, 
+        {
+          eventId: id,
+          event: event
+        },
+        {
+          headers: getAuthHeaders()
+        }
+      );
       return response.data;
     } catch (error: any) {
       throw {
@@ -42,7 +49,7 @@ export const EventService = {
         status: error.response?.status
       };
     }
-  },
+  },  
 
   delete: async (eventId: string): Promise<void> => {
     try {

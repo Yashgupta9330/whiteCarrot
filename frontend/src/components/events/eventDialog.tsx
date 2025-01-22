@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { EventType, NewEventType } from "@/types/events";
 
 interface EventDialogProps {
@@ -30,17 +29,17 @@ export const EventDialog: React.FC<EventDialogProps> = ({
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const newEvent: NewEventType = {
+            id: selectedEvent?.id || "", 
             summary: formData.get("title") as string,
-            startDate: formData.get("date") as string,
-            startTime: formData.get("time") as string,
-            endDate: formData.get("date") as string,
-            endTime: formData.get("time") as string,
+            startDate: formData.get("startDate") as string,
+            startTime: formData.get("startTime") as string,
+            endDate: formData.get("endDate") as string,
+            endTime: formData.get("endTime") as string,
             description: formData.get("description") as string,
-            location: "",
+            location: formData.get("location") as string,  
         };
-
         await onSubmit(newEvent);
-        onOpenChange(false);
+        onOpenChange(false); 
     };
 
     return (
@@ -53,6 +52,14 @@ export const EventDialog: React.FC<EventDialogProps> = ({
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Hidden input for the event id */}
+                    {selectedEvent && (
+                        <Input 
+                            type="hidden" 
+                            name="id" 
+                            defaultValue={selectedEvent.id} 
+                        />
+                    )}
                     <Input
                         placeholder="Event Title"
                         name="title"
@@ -60,41 +67,56 @@ export const EventDialog: React.FC<EventDialogProps> = ({
                         className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                         required
                     />
-                    <Input
-                        type="date"
-                        name="date"
-                        defaultValue={
-                            selectedEvent?.start?.dateTime
+                    <div className="grid grid-cols-2 gap-4">
+                        <Input
+                            type="date"
+                            name="startDate"
+                            defaultValue={selectedEvent?.start?.dateTime
                                 ? selectedEvent.start.dateTime.split('T')[0]
-                                : ""
-                        }
-                        className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required
-                    />
-                    <Input
-                        type="time"
-                        name="time"
-                        defaultValue={
-                            selectedEvent?.start?.dateTime
+                                : ""}
+                            className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+                            required
+                        />
+                        <Input
+                            type="time"
+                            name="startTime"
+                            defaultValue={selectedEvent?.start?.dateTime
                                 ? selectedEvent.start.dateTime.split('T')[1]?.split('.')[0] || ""
-                                : ""
-                        }
-                        className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required
-                    />
-                    <Select name="type" defaultValue="work">
-                        <SelectTrigger className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
-                            <SelectValue placeholder="Event Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="work">Work</SelectItem>
-                            <SelectItem value="personal">Personal</SelectItem>
-                        </SelectContent>
-                    </Select>
+                                : ""}
+                            className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+                            required
+                        />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <Input
+                            type="date"
+                            name="endDate"
+                            defaultValue={selectedEvent?.end?.dateTime
+                                ? selectedEvent.end.dateTime.split('T')[0]
+                                : ""}
+                            className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+                            required
+                        />
+                        <Input
+                            type="time"
+                            name="endTime"
+                            defaultValue={selectedEvent?.end?.dateTime
+                                ? selectedEvent.end.dateTime.split('T')[1]?.split('.')[0] || ""
+                                : ""}
+                            className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+                            required
+                        />
+                    </div>
                     <Textarea
                         placeholder="Event Description"
                         name="description"
                         defaultValue={selectedEvent?.description || ""}
+                        className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
+                    />
+                    <Input
+                        placeholder="Event Location"
+                        name="location"
+                        defaultValue={selectedEvent?.location || ""}
                         className="border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                     />
                     <DialogFooter>

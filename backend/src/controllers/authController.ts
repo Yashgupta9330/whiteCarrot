@@ -99,7 +99,6 @@ class AuthController {
   static logout(req: Request, res: Response) {
     res.clearCookie("auth_token"); 
     res.clearCookie("refresh_token"); 
-
     return res.status(200).json({
       message: "User has been logged out successfully",
     });

@@ -1,10 +1,8 @@
 import { NavigateFunction } from 'react-router-dom';
 
 export const handleAuthError = (navigate: NavigateFunction, errorMessage?: string) => {
-  localStorage.removeItem('token');
-  if (errorMessage?.toLowerCase().includes('invalid credentials')) {
+  if (errorMessage?.toLowerCase().includes('invalid credentials') || errorMessage?.toLowerCase().includes('Error during authentication')) {
+    localStorage.removeItem('token');
     navigate('/');
-  } else {
-    navigate('/login');
-  }
+  } 
 };

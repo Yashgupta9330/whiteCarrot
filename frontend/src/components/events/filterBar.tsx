@@ -1,8 +1,9 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { handleTodayClick } from "@/utils/Date";
 
 interface FilterBarProps {
   searchTerm: string;
@@ -20,22 +21,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   return (
     <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0 mb-6">
       <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto mb-4 sm:mb-0">
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
         <Input
           type="date"
           className="w-full sm:w-auto border-indigo-600 dark:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
@@ -44,7 +29,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           />
           <Button
             variant="outline"
-            onClick={() => onFilterDateChange("")}
+            onClick={handleTodayClick}
             className="w-full sm:w-auto text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900"
           >
             Today

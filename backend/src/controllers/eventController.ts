@@ -54,9 +54,11 @@ class EventController {
         return res.status(401).json({ message: "User not authenticated" });
       }
 
-      const { eventId, ...updatedData } = req.body;
-      const parsedEventData = eventSchema.parse(updatedData);
-
+      const { eventId, event } = req.body;
+      console.log("eventId:",eventId);
+      console.log("event:",event);
+      const parsedEventData = eventSchema.parse(event);
+      console.log("passed parsing")
       const updatedEvent = await EventService.updateEvent(req.user, eventId, parsedEventData);
 
       return res.status(200).json({

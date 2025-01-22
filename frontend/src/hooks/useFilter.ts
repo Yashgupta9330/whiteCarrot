@@ -8,7 +8,6 @@ export const useFilter = (events: GoogleCalendarEvent[]) => {
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
       const matchesSearch = event.summary.toLowerCase().includes(searchTerm.toLowerCase());
-      // Date filter
       let matchesDate = true;
       if (filterDate) {
         const eventDate = event.start.dateTime || event.start.date;

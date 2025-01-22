@@ -2,13 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from "lucide-react";
-import { GoogleCalendarEvent, GoogleDateTime } from "@/types/events";
+import { EventType, GoogleDateTime } from "@/types/events";
 
 
 interface EventTableProps {
-  events: GoogleCalendarEvent[];
-  onEdit: (event: GoogleCalendarEvent) => void;
-  onDelete: (event: GoogleCalendarEvent) => void;
+  events: EventType[];
+  onEdit: (event: EventType) => void;
+  onDelete: (event: EventType) => void;
 }
 
 export const EventTable: React.FC<EventTableProps> = ({ events, onEdit, onDelete }) => {
