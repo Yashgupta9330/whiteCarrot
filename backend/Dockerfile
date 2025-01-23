@@ -1,30 +1,18 @@
 FROM node:20-alpine
 
-ENV NODE_OPTIONS=--max_old_space_size=4096
-# Set working directory
+ENV NODE_OPTIONS=--max_old_space_size=8192
+ENV NODE_ENV=production
+
 WORKDIR /app
 
-# Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install --legacy-peer-deps
-RUN npm install -g nodemon
+RUN npm ci --omit=dev
 
+COPY . .
 
-# Copy the rest of the necessary files
-COPY tsconfig*.json ./
-COPY .env ./
-COPY src ./src
-COPY prisma ./prisma
-
-# Generate Prisma client
 RUN npx prisma generate
-
-# Build the application
 RUN npm run build
 
-# Expose the application port
 EXPOSE 4000
 
-# Start the application with nodemon
-CMD ["nodemon", "dist/server.js"]
-
+CMD ["node", "dist/server.js"]
