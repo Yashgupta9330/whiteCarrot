@@ -9,13 +9,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Generate Prisma Client
-RUN npx prisma generate
-
 # Copy the pre-built application and necessary files
 COPY dist ./dist
 COPY prisma ./prisma
 COPY .env ./.env
+
+# Generate Prisma Client
+RUN npx prisma generate
 
 # Expose the application port
 EXPOSE 4000
