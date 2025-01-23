@@ -4,7 +4,7 @@ import {axiosInstance, getAuthHeaders } from './apiConnector';
 export const EventService = {
   list: async (): Promise<EventType[]> => {
     try {
-      const response = await axiosInstance.get('/list', {
+      const response = await axiosInstance.get('/events/list', {
         headers: getAuthHeaders()
       });
       return response.data;
@@ -18,7 +18,7 @@ export const EventService = {
 
   create: async (event: NewEventType): Promise<EventType> => {
     try {
-      const response = await axiosInstance.post('/create', event, {
+      const response = await axiosInstance.post('/events/create', event, {
         headers: getAuthHeaders()
       });
       return response.data;
@@ -33,7 +33,7 @@ export const EventService = {
   update: async (id: string, event: NewEventType): Promise<EventType> => {
     try {
       const response = await axiosInstance.put(
-        `/update`, 
+        `/events/update`, 
         {
           eventId: id,
           event: event
@@ -53,7 +53,7 @@ export const EventService = {
 
   delete: async (eventId: string): Promise<void> => {
     try {
-      await axiosInstance.delete('/delete', {
+      await axiosInstance.delete('/events/delete', {
         headers: getAuthHeaders(),
         data: { eventId }
       });
