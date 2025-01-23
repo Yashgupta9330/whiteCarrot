@@ -1,5 +1,6 @@
 FROM node:20-alpine
 
+ENV NODE_OPTIONS=--max_old_space_size=4096
 # Set working directory
 WORKDIR /app
 
