@@ -14,6 +14,9 @@ A web application that allows users to log in with Google, view their calendar e
 -  Event display with search-based filtering
 -  Event display with date-based filtering
 -  Event display with today filtering
+-  Update Events
+-  Create Events
+-  Delete Events
 - Analytics Dashboard featuring:
   - Most Common Event
   - Busiest Day
@@ -50,10 +53,9 @@ A web application that allows users to log in with Google, view their calendar e
 4. Configure OAuth Consent Screen:
    - Set user type as "External"
    - Add required scopes:
-     - `openid`
      - `profile`
      - `email`
-     - `https://www.googleapis.com/auth/calendar.readonly`
+     - `https://www.googleapis.com/auth/calendar`
 5. Create OAuth 2.0 Client ID:
    - Go to Credentials
    - Click "Create Credentials" → "OAuth Client ID"
