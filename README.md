@@ -59,7 +59,7 @@ A web application that allows users to log in with Google, view their calendar e
    - Click "Create Credentials" → "OAuth Client ID"
    - Application Type: "Web Application"
    - Add authorized JavaScript origins:
-     - `http://localhost:3000` (development)
+     - `http://localhost:5173` (development)
      - `https://white-carrot-gamma.vercel.app` (production)
    - Add authorized redirect URIs:
      - `http://localhost:4000/api/auth/google/callback` (development)
@@ -75,14 +75,14 @@ DATABASE_URL=postgresql://user:password@db:5432/calendar
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 PORT=4000
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:5173
 GOOGLE_REDIRECT_URL=http://localhost:4000/api/auth/google/callback
 JWT_SECRET=your_secure_random_string_here
 ```
 
-2. Frontend (.env file in client directory):
+2. Frontend (src/constants.ts):
 ```
-API_BASE_URL=http://localhost:4000/api
+API_BASE_URL=http://localhost:4000
 ```
 
 ### Installation
@@ -117,4 +117,4 @@ cd frontend
 npm run dev
 ```
 
-The application will be available at `http://localhost:3000`
+The application will be available at `http://localhost:5173`
