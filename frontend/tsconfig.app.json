@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "ES2020",             
+    "module": "ESNext",             
     "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",
@@ -21,9 +21,9 @@
     "jsx": "react-jsx"  
   },
   "include": [
-    "src/**/*"  // Include all TypeScript and TSX files in the src folder
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules"  // Exclude node_modules
+    "node_modules"
   ]
 }

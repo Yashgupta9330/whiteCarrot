@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { API_BASE_URL } from "@/constants";
 import { Calendar } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
  const navigate=useNavigate();
   const login = () => {
-    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/api/auth/login`; 
+    window.location.href = `${API_BASE_URL}/api/auth/login`; 
   };
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getAuthHeaders } from "@/services/apiConnector";
+import { API_BASE_URL } from "@/constants";
 
 
 
@@ -20,7 +21,7 @@ export const Header: React.FC = () => {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/auth/logout`,{headers});
+      await axios.get(`${API_BASE_URL}/api/auth/logout`,{headers});
       localStorage.removeItem("token");
       navigate('/')
     } catch (error) {
