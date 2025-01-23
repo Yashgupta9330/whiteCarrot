@@ -118,3 +118,4 @@ npm run dev
 ```
 
 The application will be available at `http://localhost:5173`
+![image](https://github.com/user-attachments/assets/f7f827fb-3c47-40c7-9b8b-27eeec4cfe9e)
