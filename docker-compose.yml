@@ -15,6 +15,7 @@ services:
       - app-network
     volumes:
       - ./backend/src:/app/src
+      - ./backend/dist:/app/dist
       - ./backend/prisma:/app/prisma
     restart: unless-stopped
   db:
