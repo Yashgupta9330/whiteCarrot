@@ -6,8 +6,11 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Copy package files and install only production dependencies
-COPY package*.json ./ 
+COPY package*.json ./
 RUN npm ci --omit=dev
+
+# Generate Prisma Client
+RUN npx prisma generate
 
 # Copy the pre-built application and necessary files
 COPY dist ./dist
