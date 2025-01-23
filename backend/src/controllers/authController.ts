@@ -85,7 +85,7 @@ class AuthController {
         });
       }
 
-      const redirectUrl = `https://white-carrot-gamma.vercel.app/dashboard?token=${jwtToken}`;
+      const redirectUrl = `${process.env.FRONTEND_URL}/dashboard?token=${jwtToken}`;
       res.redirect(redirectUrl);
     } catch (error) {
       console.error("Authentication error:", error);

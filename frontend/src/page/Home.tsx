@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
  const navigate=useNavigate();
   const login = () => {
-    window.location.href = `${process.env.API_BASE_URL}/auth/login`; 
+    window.location.href = `${process.env.API_BASE_URL}/api/auth/login`; 
   };
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.API_BASE_URL}`,{headers});
+      await axios.get(`${process.env.API_BASE_URL}/api/auth/logout`,{headers});
       localStorage.removeItem("token");
       navigate('/')
     } catch (error) {
