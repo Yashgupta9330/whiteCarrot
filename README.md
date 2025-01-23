@@ -4,8 +4,8 @@ A web application that allows users to log in with Google, view their calendar e
 
 ## Live Demo
 
-- Frontend: [https://whitecarrot.vercel.app](https://whitecarrot.vercel.app)
-- Backend:  [https://whitecarrot.onrender.com](https://whitecarrot.onrender.com)
+- Frontend: https://white-carrot-gamma.vercel.app/
+- Backend:  https://whitecarrot-owjf.onrender.com/
 
 ## Features
 
