@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EventType, NewEventType } from '@/types/events';
 import { Insights } from '@/components/events/Insights';
-
+import {motion} from 'framer-motion'
 export default function Dashboard() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -109,6 +109,11 @@ export default function Dashboard() {
       <Header />
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Insights events={events} />
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
         <Card className="bg-white dark:bg-gray-800 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl text-indigo-600 dark:text-indigo-400">Calendar Events</CardTitle>
@@ -129,7 +134,7 @@ export default function Dashboard() {
             />
           </CardContent>
         </Card>
-
+        </motion.div>
         <EventDialog
           open={isEventDialogOpen}
           onOpenChange={setIsEventDialogOpen}
