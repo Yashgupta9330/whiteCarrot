@@ -3,7 +3,6 @@ version: '3.8'
 services:
   backend:
     build:
-      export NODE_OPTIONS="--max_old_space_size=4096"
       context: ./backend
       dockerfile: Dockerfile
     ports:
