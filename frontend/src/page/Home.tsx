@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
  const navigate=useNavigate();
   const login = () => {
-    window.location.href = "http://localhost:4000/api/auth/login"; 
+    window.location.href = "https://whitecarrot-owjf.onrender.com/api/auth/login"; 
   };
 
   useEffect(() => {
