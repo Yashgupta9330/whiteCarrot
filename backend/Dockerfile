@@ -1,18 +1,21 @@
 FROM node:20-alpine
 
-ENV NODE_OPTIONS=--max_old_space_size=8192
+# Set environment variables
 ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package files and install only production dependencies
+COPY package*.json ./ 
 RUN npm ci --omit=dev
 
-COPY . .
+# Copy the pre-built application and necessary files
+COPY dist ./dist
+COPY prisma ./prisma
+COPY .env ./.env
 
-RUN npx prisma generate
-RUN npm run build
-
+# Expose the application port
 EXPOSE 4000
 
+# Start the server
 CMD ["node", "dist/server.js"]

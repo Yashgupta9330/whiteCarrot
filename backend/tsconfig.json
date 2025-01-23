@@ -2,7 +2,7 @@
     "compilerOptions": {
       "target": "es2020",
       "module": "commonjs",
-      "incremental": true,
+      "incremental": false,
       "tsBuildInfoFile": "./buildcache",
       "lib": ["es2020"],
       "outDir": "./dist",
