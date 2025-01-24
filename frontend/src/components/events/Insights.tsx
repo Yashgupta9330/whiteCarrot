@@ -3,16 +3,18 @@ import { EventType } from "@/types/events";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { motion } from "framer-motion";
+import { Spinner } from "../ui/Spinner";
+
 
 interface InsightsBarProps {
   events: EventType[];
+  loading: boolean;
 }
 
-export const Insights: React.FC<InsightsBarProps> = ({ events }) => {
-
+export const Insights: React.FC<InsightsBarProps> = ({ events, loading }) => {
   const dayCount: Record<string, number> = {};
   events.forEach((event) => {
-    if (event.start?.dateTime) { 
+    if (event.start?.dateTime) {
       const day = new Date(event.start.dateTime).toLocaleString("en-US", { weekday: "long" });
       dayCount[day] = (dayCount[day] || 0) + 1;
     }
@@ -23,14 +25,13 @@ export const Insights: React.FC<InsightsBarProps> = ({ events }) => {
     if (!event.start?.dateTime || !event.end?.dateTime) return sum;
     const start = new Date(event.start.dateTime).getTime();
     const end = new Date(event.end.dateTime).getTime();
-    return sum + (end - start) / (1000 * 60 * 60); 
+    return sum + (end - start) / (1000 * 60 * 60);
   }, 0);
   const avgWorkingHours = events.length > 0 ? (totalHours / events.length).toFixed(1) + " hours" : "0 hours";
 
-
   const eventTypeCount: Record<string, number> = {};
   events.forEach((event) => {
-    if (event.summary) { 
+    if (event.summary) {
       eventTypeCount[event.summary] = (eventTypeCount[event.summary] || 0) + 1;
     }
   });
@@ -63,10 +64,14 @@ export const Insights: React.FC<InsightsBarProps> = ({ events }) => {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg font-medium text-gray-600 dark:text-gray-300">{item.title}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold" style={{ color: item.color }}>
-              {item.value}
-            </p>
+          <CardContent className="flex justify-center items-center h-24">
+            {loading ? (
+              <Spinner size="md" color={item.color} /> 
+            ) : (
+              <p className="text-2xl font-bold" style={{ color: item.color }}>
+                {item.value}
+              </p>
+            )}
           </CardContent>
         </Card>
       ))}
@@ -75,26 +80,32 @@ export const Insights: React.FC<InsightsBarProps> = ({ events }) => {
           <CardTitle className="text-lg font-medium text-gray-600 dark:text-gray-300">Event Types</CardTitle>
         </CardHeader>
         <CardContent className="h-[200px] p-2">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={eventTypeData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={80}
-                fill="#8884d8"
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {eventTypeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
+          {loading ? (
+            <div className="flex justify-center items-center h-full">
+              <Spinner size="lg" color="#8884d8" /> {/* Spinner for PieChart */}
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={eventTypeData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {eventTypeData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </Card>
     </motion.div>

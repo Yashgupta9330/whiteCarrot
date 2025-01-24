@@ -33,14 +33,14 @@ export const exportUtils = {
           formatDateTime(event.end.dateTime),
           truncateText(event.location, 30), 
         ]),
-        styles: { fontSize: 10 }, // General font size
+        styles: { fontSize: 10 },
         columnStyles: {
-          0: { cellWidth: 40 }, // Title column
-          1: { cellWidth: 30 }, // Start Date column
-          2: { cellWidth: 30 }, // End Date column
-          4: { cellWidth: 40 }, // Location column
+          0: { cellWidth: 40 }, 
+          1: { cellWidth: 30 }, 
+          2: { cellWidth: 30 },
+          4: { cellWidth: 40 }, 
         },
-        pageBreak: "auto", // Handle overflow gracefully
+        pageBreak: "auto", 
       });
     }
 
